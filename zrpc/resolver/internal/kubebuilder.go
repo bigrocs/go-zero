@@ -26,6 +26,7 @@ type kubeBuilder struct{}
 func (b *kubeBuilder) Build(target resolver.Target, cc resolver.ClientConn,
 	_ resolver.BuildOptions) (resolver.Resolver, error) {
 	svc, err := kube.ParseTarget(target)
+	fmt.Println(100000, svc, err)
 	if err != nil {
 		return nil, err
 	}
