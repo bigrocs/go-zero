@@ -39,15 +39,16 @@ func (b *kubeBuilder) Build(target resolver.Target, cc resolver.ClientConn,
 	if err != nil {
 		return nil, err
 	}
-
+	fmt.Println(11111, svc)
 	if svc.Port == 0 {
 		endpoints, err := cs.CoreV1().Endpoints(svc.Namespace).Get(context.Background(), svc.Name, v1.GetOptions{})
+		fmt.Println(2222, endpoints, err)
 		if err != nil {
 			return nil, err
 		}
 		svc.Port = int(endpoints.Subsets[0].Ports[0].Port)
 	}
-
+	fmt.Println(3333, err)
 	handler := kube.NewEventHandler(func(endpoints []string) {
 		var addrs []resolver.Address
 		for _, val := range subset(endpoints, subsetSize) {
